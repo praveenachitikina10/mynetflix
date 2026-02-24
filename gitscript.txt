@@ -1,0 +1,110 @@
+
+
+CREATE TABLE netflix (
+show_id SERIAL PRIMARY KEY,
+title VARCHAR(200),
+type VARCHAR(20), -- Movie / TV Show
+director VARCHAR(200),
+country VARCHAR(100),
+date_added DATE,
+release_year INT,
+rating VARCHAR(10),
+duration VARCHAR(50), -- 90 min / 2 Seasons
+listed_in VARCHAR(200), -- Genre
+description TEXT
+);
+
+
+
+
+INSERT INTO netflix (title, type, director, country, date_added, release_year, rating, duration, listed_in, description)
+VALUES
+('RRR', 'Movie', 'S. S. Rajamouli', 'India', '2022-03-25', 2022, 'TV-MA', '182 min', 'Action', 'Indian action drama'),
+('Stranger Things', 'TV Show', 'Duffer Brothers', 'USA', '2016-07-15', 2016, 'TV-14', '4 Seasons', 'Sci-Fi', 'Supernatural thriller'),
+('Baahubali', 'Movie', 'S. S. Rajamouli', 'India', '2015-07-10', 2015, 'TV-MA', '159 min', 'Action', 'Epic historical fiction'),
+('Money Heist', 'TV Show', 'Alex Pina', 'Spain', '2017-05-02', 2017, 'TV-MA', '5 Seasons', 'Crime', 'Heist crime drama'),
+('The Crown', 'TV Show', NULL, 'UK', '2016-11-04', 2016, 'TV-14', '6 Seasons', 'Drama', 'British royal family'),
+('KGF', 'Movie', NULL, 'India', '2018-12-21', 2018, 'TV-MA', '155 min', 'Action', 'Gold mining mafia story');
+
+
+
+
+INSERT INTO netflix (title, type, director, country, date_added, release_year, rating, duration, listed_in, description)
+VALUES
+('Inception', 'Movie', 'Christopher Nolan', 'USA', '2010-07-16', 2010, 'PG-13', '148 min', 'Sci-Fi', 'Dream within dream'),
+('The Dark Knight', 'Movie', 'Christopher Nolan', 'USA', '2008-07-18', 2008, 'PG-13', '152 min', 'Action', 'Batman vs Joker'),
+('Sacred Games', 'TV Show', 'Anurag Kashyap', 'India', '2018-07-06', 2018, 'TV-MA', '2 Seasons', 'Crime', 'Indian crime thriller'),
+('Delhi Crime', 'TV Show', NULL, 'India', '2019-03-22', 2019, 'TV-MA', '2 Seasons', 'Crime', 'Based on real incident'),
+('Friends', 'TV Show', NULL, 'USA', '1994-09-22', 1994, 'TV-14', '10 Seasons', 'Comedy', 'Six friends in NYC'),
+('Avengers: Endgame', 'Movie', 'Anthony Russo', 'USA', '2019-04-26', 2019, 'PG-13', '181 min', 'Action', 'Marvel superhero finale'),
+('The Witcher', 'TV Show', NULL, 'USA', '2019-12-20', 2019, 'TV-MA', '3 Seasons', 'Fantasy', 'Monster hunter saga'),
+('3 Idiots', 'Movie', 'Rajkumar Hirani', 'India', '2009-12-25', 2009, 'PG-13', '170 min', 'Comedy', 'Engineering college life'),
+('Narcos', 'TV Show', NULL, 'USA', '2015-08-28', 2015, 'TV-MA', '3 Seasons', 'Crime', 'Drug cartel story'),
+('Jai Bhim', 'Movie', 'T. J. Gnanavel', 'India', '2021-11-02', 2021, 'TV-MA', '164 min', 'Drama', 'Legal battle story'),
+('Breaking Bad', 'TV Show', NULL, 'USA', '2008-01-20', 2008, 'TV-MA', '5 Seasons', 'Crime', 'Chemistry teacher turned drug lord'),
+('Interstellar', 'Movie', 'Christopher Nolan', 'USA', '2014-11-07', 2014, 'PG-13', '169 min', 'Sci-Fi', 'Space exploration'),
+('Squid Game', 'TV Show', NULL, 'South Korea', '2021-09-17', 2021, 'TV-MA', '1 Season', 'Thriller', 'Deadly survival game'),
+('Dangal', 'Movie', 'Nitesh Tiwari', 'India', '2016-12-23', 2016, 'PG', '161 min', 'Sports', 'Wrestling story'),
+('Peaky Blinders', 'TV Show', NULL, 'UK', '2013-09-12', 2013, 'TV-MA', '6 Seasons', 'Crime', 'Gangster family saga'),
+('The Social Dilemma', 'Movie', NULL, 'USA', '2020-09-09', 2020, 'PG-13', '94 min', 'Documentary', 'Social media impact'),
+('Kota Factory', 'TV Show', NULL, 'India', '2019-04-16', 2019, 'TV-14', '2 Seasons', 'Drama', 'IIT coaching life'),
+('Extraction', 'Movie', 'Sam Hargrave', 'USA', '2020-04-24', 2020, 'TV-MA', '116 min', 'Action', 'Mercenary mission'),
+('Loki', 'TV Show', NULL, 'USA', '2021-06-09', 2021, 'TV-14', '2 Seasons', 'Fantasy', 'Marvel multiverse'),
+('Article 15', 'Movie', 'Anubhav Sinha', 'India', '2019-06-28', 2019, 'TV-MA', '130 min', 'Crime', 'Caste discrimination case');
+
+
+select * from netflix;
+
+
+CREATE TABLE platform_views (
+    view_id SERIAL PRIMARY KEY,
+    show_id INT,
+    user_id INT,
+    watch_date DATE,
+    watch_time_minutes INT,
+    device_type VARCHAR(50),
+    subscription_type VARCHAR(50),
+    revenue DECIMAL(10,2),
+    completion_percentage INT,
+    FOREIGN KEY (show_id) REFERENCES netflix(show_id)
+);
+
+INSERT INTO platform_views 
+(show_id, user_id, watch_date, watch_time_minutes, device_type, subscription_type, revenue, completion_percentage)
+VALUES
+(1, 101, '2023-01-10', 120, 'Mobile', 'Premium', 5.99, 95),
+(2, 102, '2023-01-11', 45, 'TV', 'Basic', 3.99, 60),
+(3, 103, '2023-01-12', 150, 'Laptop', 'Premium', 6.99, 100),
+(4, 104, '2023-01-13', 80, 'Mobile', 'Free', 0.00, 70),
+(5, 105, '2023-01-14', 200, 'TV', 'Premium', 7.99, 98),
+(6, 106, '2023-01-15', 60, 'Laptop', 'Basic', 3.99, 75),
+(7, 107, '2023-01-16', 140, 'Mobile', 'Premium', 6.99, 92),
+(8, 108, '2023-01-17', 100, 'TV', 'Premium', 5.99, 85),
+(9, 109, '2023-01-18', 90, 'Laptop', 'Free', 0.00, 65),
+(10, 110, '2023-01-19', 130, 'Mobile', 'Premium', 6.99, 97),
+
+(1, 111, '2023-02-01', 110, 'TV', 'Basic', 3.99, 88),
+(2, 112, '2023-02-02', 50, 'Mobile', 'Free', 0.00, 55),
+(3, 113, '2023-02-03', 160, 'Laptop', 'Premium', 7.99, 100),
+(4, 114, '2023-02-04', 75, 'TV', 'Basic', 3.99, 72),
+(5, 115, '2023-02-05', 210, 'Mobile', 'Premium', 8.99, 99),
+(6, 116, '2023-02-06', 65, 'Laptop', 'Premium', 5.99, 80),
+(7, 117, '2023-02-07', 150, 'TV', 'Premium', 6.99, 94),
+(8, 118, '2023-02-08', 105, 'Mobile', 'Basic', 3.99, 83),
+(9, 119, '2023-02-09', 95, 'Laptop', 'Premium', 5.99, 78),
+(10, 120, '2023-02-10', 140, 'TV', 'Premium', 7.99, 96),
+
+(11, 121, '2023-03-01', 100, 'Mobile', 'Premium', 5.99, 90),
+(12, 122, '2023-03-02', 85, 'TV', 'Basic', 3.99, 75),
+(13, 123, '2023-03-03', 170, 'Laptop', 'Premium', 8.99, 100),
+(14, 124, '2023-03-04', 60, 'Mobile', 'Free', 0.00, 50),
+(15, 125, '2023-03-05', 190, 'TV', 'Premium', 7.99, 97),
+(16, 126, '2023-03-06', 70, 'Laptop', 'Basic', 3.99, 68),
+(17, 127, '2023-03-07', 155, 'Mobile', 'Premium', 6.99, 93),
+(18, 128, '2023-03-08', 120, 'TV', 'Premium', 6.99, 88),
+(19, 129, '2023-03-09', 85, 'Laptop', 'Premium', 5.99, 76),
+(20, 130, '2023-03-10', 145, 'Mobile', 'Premium', 7.99, 95);
+
+select * from platform_views;
+
+
